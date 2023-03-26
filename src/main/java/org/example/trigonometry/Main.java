@@ -3,7 +3,7 @@ package org.example.trigonometry;
 public class Main {
     public static void main(String[] args) {
 
-        Cot cot = new Cot();
-        System.out.println(cot.calc(Math.PI, 0.1));
+        Sin sin = new Sin();
+        System.out.println(sin.calc(-3.1415926, 0.1));
     }
 }

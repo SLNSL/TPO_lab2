@@ -1,14 +1,35 @@
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import com.opencsv.CSVReader;
+import org.example.trigonometry.Sin;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class FunctionTest {
 
+    double eps = 0.1;
+    static Sin sinMock;
 
-    @ParameterizedTest
-    @ValueSource(doubles = {0, Math.PI, -Math.PI, -10 * Math.PI})
-    public void testPi(double x){
+
+    @Test
+    void fd() {
+        sinMock = Mockito.mock(Sin.class);
+
+        try {
+            FileReader sinInputs = new FileReader("D:\\Уник\\6 сем\\ТПО\\lab2\\src\\main\\resources\\SinInput.csv");
+
+            CSVReader csvReader = new CSVReader(sinInputs);
+            for (String[] row : csvReader) {
+                Mockito.when(sinMock.calc(Double.parseDouble(row[0]), eps)).thenReturn(Double.parseDouble(row[1]));
+            }
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -1,6 +1,7 @@
+import org.example.Calculable;
 import org.example.trigonometry.*;
 
-public class Func {
+public class Func implements Calculable {
 
     Cot cot;
     Csc csc;

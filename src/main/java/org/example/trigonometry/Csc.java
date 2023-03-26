@@ -1,6 +1,8 @@
 package org.example.trigonometry;
 
-public class Csc {
+import org.example.Calculable;
+
+public class Csc implements Calculable {
 
     private final Sin sin;
 

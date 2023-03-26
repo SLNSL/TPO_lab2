@@ -1,4 +1,6 @@
-package org.example.trigonometry;
+package org.example;
+
+import org.example.trigonometry.Cot;
 
 public class Main {
     public static void main(String[] args) {

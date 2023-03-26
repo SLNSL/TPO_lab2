@@ -1,9 +1,9 @@
 package org.example.trigonometry;
 
-public class Sin {
+import org.example.Calculable;
 
-
-
+public class Sin implements Calculable {
+    
     public double calc(double x, double eps){
 
         double fact = 1, prev_res = 1, result = 0;

@@ -1,6 +1,8 @@
 package org.example.trigonometry;
 
-public class Cot {
+import org.example.Calculable;
+
+public class Cot implements Calculable {
 
     private final Sin sin;
     private final Cos cos;

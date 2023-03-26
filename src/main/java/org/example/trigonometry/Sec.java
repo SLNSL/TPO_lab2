@@ -9,7 +9,6 @@ public class Sec implements Calculable {
 
     public Sec(){
         this.cos = new Cos();
-
     }
 
     public Sec(Cos cos){

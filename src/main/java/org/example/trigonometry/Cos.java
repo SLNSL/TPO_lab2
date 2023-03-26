@@ -1,19 +1,6 @@
 package org.example.trigonometry;
 
-import org.example.Calculable;
-
-public class Cos implements Calculable {
-
-    private final Sin sin;
-
-    public Cos(){
-        this.sin = new Sin();
-    }
-
-    public Cos(Sin sin){
-        this.sin = sin;
-    }
-
+public class Cos extends Sin {
 
     public double calc(double x, double eps){
         double x_init = x;
@@ -26,8 +13,8 @@ public class Cos implements Calculable {
         }
         double result;
         if (x > Math.PI / 2 || x < -Math.PI / 2) {
-            result = -1 * Math.sqrt(1 - sin.calc(x_init, eps) * sin.calc(x_init, eps));
-        } else result = Math.sqrt(1 - sin.calc(x_init, eps) * sin.calc(x_init, eps));
+            result = -1 * Math.sqrt(1 - super.calc(x_init, eps) * super.calc(x_init, eps));
+        } else result = Math.sqrt(1 - super.calc(x_init, eps) * super.calc(x_init, eps));
         if (Math.abs(result) > 1) return Double.NaN;
         if (Math.abs(result) <= eps) return 0;
         return result;

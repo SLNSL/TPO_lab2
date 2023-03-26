@@ -9,7 +9,6 @@ public class Csc implements Calculable {
 
     public Csc(){
         this.sin = new Sin();
-
     }
 
     public Csc(Sin sin){

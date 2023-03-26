@@ -5,6 +5,7 @@ import org.mockito.Mockito;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class FunctionTest {
@@ -18,15 +19,17 @@ public class FunctionTest {
         sinMock = Mockito.mock(Sin.class);
 
         try {
-            FileReader sinInputs = new FileReader("D:\\Уник\\6 сем\\ТПО\\lab2\\src\\main\\resources\\SinInput.csv");
+            FileReader sinInputs = new FileReader(
+                    Objects.requireNonNull(
+                            getClass().getResource("SinInput.csv")
+                    ).getPath()
+            );
 
             CSVReader csvReader = new CSVReader(sinInputs);
             for (String[] row : csvReader) {
                 Mockito.when(sinMock.calc(Double.parseDouble(row[0]), eps)).thenReturn(Double.parseDouble(row[1]));
             }
-
-
-
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.trigonometry.Cot;
+import org.example.trigonometry.Sin;
 
 public class Main {
     public static void main(String[] args) {

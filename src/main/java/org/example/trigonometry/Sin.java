@@ -33,7 +33,7 @@ public class Sin implements Calculable {
             cnt += 2;
         }
 
-        if (Math.abs(result) > 1) return Double.NaN;
+        if ((Math.abs(result) >= 1) && (Math.abs(result) - eps <= 1))  return -1;
         if (Math.abs(result) < eps) return 0;
         return result;
 

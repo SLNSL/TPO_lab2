@@ -1,8 +1,25 @@
 package org.example.trigonometry;
 
-public class Cot extends Tan {
+import org.example.Calculable;
+
+public class Cot implements Calculable {
+
+    private final Sin sin;
+    private final Cos cos;
+
+    public Cot(){
+        this.sin = new Sin();
+        this.cos = new Cos();
+    }
+
+    public Cot(Sin sin, Cos cos){
+        this.sin = sin;
+        this.cos = cos;
+    }
+
+
     @Override
     public double calc(double x, double eps){
-        return 1.0 / super.calc(x, eps);
+        return cos.calc(x, eps) / sin.calc(x, eps);
     }
 }

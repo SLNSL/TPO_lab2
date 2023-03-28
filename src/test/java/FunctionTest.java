@@ -5,16 +5,19 @@ import org.example.logarithms.Log;
 import org.example.trigonometry.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.mockito.Mockito;
 
 import java.io.FileReader;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class FunctionTest {
 
-    static double eps = 0.001;
+    static double eps = 0.01;
     static Sin sinMock;
     static Cos cosMock;
     static Cot cotMock;
@@ -61,7 +64,7 @@ public class FunctionTest {
     }
 
 
-    @Test
+
     void checkMock(){
         try {
             FileReader inputs = new FileReader("src/main/resources/FuncInput.csv");
@@ -69,7 +72,7 @@ public class FunctionTest {
             Calculable s = new Func();
             CSVReader csvReader = new CSVReader(inputs);
             for (String[] row : csvReader) {
-                System.out.println(Double.parseDouble(row[0]) + " " + s.calc(Double.parseDouble(row[0]), eps));
+                System.out.println(Double.parseDouble(row[0]) + ", " + s.calc(Double.parseDouble(row[0]), eps));
             }
 
 
@@ -77,12 +80,35 @@ public class FunctionTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
     }
 
 
-//    @ParameterizedTest
-//    @CsvFileSource(resources = "FuncInput.csv")
-//    void testAllMocks(double x, double expected){
-//        Func func = new Func(cotMock, cscMock, secMock, cosMock, tanMock, sinMock, lnMock, logMock);
-//    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "FuncInput.csv")
+    void testAllMocks(double x, double expected){
+        Func func = new Func(cotMock, cscMock, secMock, cosMock, tanMock, sinMock, lnMock, logMock);
+        assertEquals(expected, func.calc(x, eps), eps);
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "FuncInput.csv")
+    void testOneDependency(double x, double expected){
+        Func func = new Func(new Cot(sinMock, cosMock), new Csc(sinMock), new Sec(cosMock), cosMock, new Tan(sinMock, cosMock), sinMock, lnMock, logMock);
+        assertEquals(expected, func.calc(x, eps), eps);
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "FuncInput.csv")
+    void testTwoDependency(double x, double expected){
+        Func func = new Func(new Cot(sinMock, new Cos(sinMock)), new Csc(sinMock), new Sec(new Cos(sinMock)), new Cos(sinMock), new Tan(sinMock, new Cos(sinMock)), sinMock, lnMock, logMock);
+        assertEquals(expected, func.calc(x, eps), eps);
+    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "FuncInput.csv")
+    void testThreeDependency(double x, double expected){
+        Func func = new Func(new Cot(new Sin(), new Cos(new Sin())), new Csc(new Sin()), new Sec(new Cos(new Sin())), new Cos(new Sin()), new Tan(new Sin(), new Cos(new Sin())), new Sin(), lnMock, logMock);
+        assertEquals(expected, func.calc(x, eps), eps);
+    }
 }

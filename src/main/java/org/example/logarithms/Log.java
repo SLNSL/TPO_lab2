@@ -31,6 +31,6 @@ public class Log implements Calculable {
             return Double.NaN;
         }*/
         
-        return minuend - subtrahend;
+        return minuend / subtrahend;
     }
 }

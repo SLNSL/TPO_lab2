@@ -6,10 +6,13 @@ import org.example.logarithms.Log;
 import org.example.trigonometry.*;
 import org.example.csv.CSVPrint;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.mockito.Mockito;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -66,7 +69,7 @@ public class FunctionTest {
 
 
     @BeforeAll
-    static void createMocks() {
+    static void createMocks() throws FileNotFoundException {
         sinMock = Mockito.mock(Sin.class);
         cosMock = Mockito.mock(Cos.class);
         cotMock = Mockito.mock(Cot.class);
@@ -89,14 +92,15 @@ public class FunctionTest {
 
 
 
+    @Test
     void checkMock(){
         try {
-            FileReader inputs = new FileReader("src/main/resources/FuncInput.csv");
+            FileReader inputs = new FileReader("src/main/resources/trigonometry/CosInput.csv");
             Calculable s = new Func();
             CSVReader csvReader = new CSVReader(inputs);
             
             for (String[] row : csvReader) {
-                System.out.println(Double.parseDouble(row[0]) + ", " + s.calc(Double.parseDouble(row[0]), eps));
+                System.out.println(Double.parseDouble(row[0]) + ", " + s.calc( Double.parseDouble(row[0]), eps));
             }
         } catch (IOException e) {
             e.printStackTrace();

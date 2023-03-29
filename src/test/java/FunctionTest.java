@@ -4,11 +4,13 @@ import org.example.Func;
 import org.example.logarithms.Ln;
 import org.example.logarithms.Log;
 import org.example.trigonometry.*;
+import org.example.сsv.CSVPrint;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.mockito.Mockito;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -26,6 +28,8 @@ public class FunctionTest {
     static Tan tanMock;
     static Ln lnMock;
     static Log logMock;
+
+    static CSVPrint print;
 
     static void fillMock(Calculable mock, String filename){
         try {
@@ -52,6 +56,7 @@ public class FunctionTest {
         tanMock = Mockito.mock(Tan.class);
         lnMock = Mockito.mock(Ln.class);
         logMock = Mockito.mock(Log.class);
+        print = new CSVPrint();
         
         fillMock(sinMock, "src/main/resources/trigonometry/SinInput.csv");
         fillMock(cosMock, "src/main/resources/trigonometry/CosInput.csv");
@@ -82,14 +87,16 @@ public class FunctionTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
-    void testAllMocks(double x, double expected){
+    void testAllMocks(double x, double expected) throws FileNotFoundException {
         Func func = new Func(cotMock, cscMock, secMock, cosMock, tanMock, sinMock, lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), 0.01);
+        double ans = func.calc(x, eps);
+        assertEquals(expected, ans, 0.01);
+        print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
-    void testZeroMocks(double x, double expected){
+    void testZeroMocks(double x, double expected) throws FileNotFoundException{
         Func func = new Func(
                 new Cot(new Sin(), new Cos()),
                 new Csc(new Sin()),
@@ -99,25 +106,36 @@ public class FunctionTest {
                 new Sin(),
                 new Ln(),
                 new Log(new Ln()));
-        assertEquals(expected, func.calc(x, eps), 0.01);
+        double ans = func.calc(x, eps);
+        assertEquals(expected, ans, 0.01);
+        print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
-    void testOneDependency(double x, double expected){
+    void testOneDependency(double x, double expected) throws FileNotFoundException{
         Func func = new Func(new Cot(sinMock, cosMock), new Csc(sinMock), new Sec(cosMock), cosMock, new Tan(sinMock, cosMock), sinMock, lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), 0.01);
+        double ans = func.calc(x, eps);
+        assertEquals(expected, ans, 0.01);
+
+        print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
-    void testTwoDependency(double x, double expected){
+    void testTwoDependency(double x, double expected) throws FileNotFoundException{
         Func func = new Func(new Cot(sinMock, new Cos(sinMock)), new Csc(sinMock), new Sec(new Cos(sinMock)), new Cos(sinMock), new Tan(sinMock, new Cos(sinMock)), sinMock, lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), 0.01);
+        double ans = func.calc(x, eps);
+        assertEquals(expected, ans, 0.01);
+
+        print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
-    void testThreeDependency(double x, double expected){
+    void testThreeDependency(double x, double expected) throws FileNotFoundException{
         Func func = new Func(new Cot(new Sin(), new Cos(new Sin())), new Csc(new Sin()), new Sec(new Cos(new Sin())), new Cos(new Sin()), new Tan(new Sin(), new Cos(new Sin())), new Sin(), lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), 0.01);
+        double ans = func.calc(x, eps);
+        assertEquals(expected, ans, 0.01);
+
+        print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
 }

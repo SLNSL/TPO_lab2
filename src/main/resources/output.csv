@@ -1,0 +1,75 @@
+TestAllMocks:
+ 
+0.0, NaN 
+TestAllMocks:
+ 
+-1.047198, -54.552524788571674 
+TestAllMocks:
+ 
+-1.5707963268, NaN 
+TestAllMocks:
+ 
+-4.71238898, NaN 
+TestAllMocks:
+ 
+-6.28318530718, NaN 
+TestThreeDependency:
+ 
+0.0, NaN 
+TestThreeDependency:
+ 
+-1.047198, -54.54769599536635 
+TestThreeDependency:
+ 
+-1.5707963268, NaN 
+TestThreeDependency:
+ 
+-4.71238898, NaN 
+TestThreeDependency:
+ 
+-6.28318530718, NaN 
+TestTwoDependency:
+ 
+0.0, NaN 
+TestTwoDependency:
+ 
+-1.047198, -54.55256853251051 
+TestTwoDependency:
+ 
+-1.5707963268, NaN 
+TestTwoDependency:
+ 
+-4.71238898, NaN 
+TestTwoDependency:
+ 
+-6.28318530718, NaN 
+TestZeroMocks:
+ 
+0.0, NaN 
+TestZeroMocks:
+ 
+-1.047198, -54.54769599536635 
+TestZeroMocks:
+ 
+-1.5707963268, NaN 
+TestZeroMocks:
+ 
+-4.71238898, NaN 
+TestZeroMocks:
+ 
+-6.28318530718, NaN 
+TestOneDependency:
+ 
+0.0, NaN 
+TestOneDependency:
+ 
+-1.047198, -54.552475579689435 
+TestOneDependency:
+ 
+-1.5707963268, NaN 
+TestOneDependency:
+ 
+-4.71238898, NaN 
+TestOneDependency:
+ 
+-6.28318530718, NaN 

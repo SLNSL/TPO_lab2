@@ -95,12 +95,12 @@ public class FunctionTest {
     @Test
     void checkMock(){
         try {
-            FileReader inputs = new FileReader("src/main/resources/trigonometry/CosInput.csv");
+            FileReader inputs = new FileReader("src/main/resources/FuncInput.csv");
             Calculable s = new Func();
             CSVReader csvReader = new CSVReader(inputs);
             
             for (String[] row : csvReader) {
-                System.out.println(Double.parseDouble(row[0]) + ", " + s.calc( Double.parseDouble(row[0]), eps));
+                System.out.println(Double.parseDouble(row[0]) + ", " + s.calc(Double.parseDouble(row[0]), eps));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,7 +29,6 @@ public class FunctionTest {
     static Tan tanMock;
     static Ln lnMock;
     static Log logMock;
-
     static CSVPrint print;
 
     static void fillMock(Calculable mock, String filename){
@@ -67,6 +66,7 @@ public class FunctionTest {
 
     @BeforeAll
     static void createMocks() {
+        print = new CSVPrint();
         sinMock = Mockito.mock(Sin.class);
         cosMock = Mockito.mock(Cos.class);
         cotMock = Mockito.mock(Cot.class);
@@ -75,7 +75,6 @@ public class FunctionTest {
         tanMock = Mockito.mock(Tan.class);
         lnMock = Mockito.mock(Ln.class);
         logMock = Mockito.mock(Log.class);
-        print = new CSVPrint();
         
         fillMock(sinMock, "src/main/resources/trigonometry/SinInput.csv");
         fillMock(cosMock, "src/main/resources/trigonometry/CosInput.csv");
@@ -139,6 +138,7 @@ public class FunctionTest {
 
         print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
+    
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testTwoDependency(double x, double expected) throws FileNotFoundException{
@@ -148,6 +148,7 @@ public class FunctionTest {
 
         print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
+    
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testThreeDependency(double x, double expected) throws FileNotFoundException{

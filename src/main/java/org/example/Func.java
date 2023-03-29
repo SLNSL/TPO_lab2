@@ -59,10 +59,11 @@ public class Func implements Calculable {
                             + (((sin.calc(x, eps) + sec.calc(x, eps)) + csc.calc(x, eps)) /
                             Math.pow(tan.calc(x, eps), 3))))) * csc.calc(x, eps));
         } else {
+
             return Math.pow((
-                    ((ln.calc(x, eps) - log.calc(x, eps)) + (ln.calc(x, eps) / log.calc(5, x, eps)))
-                    / (ln.calc(x, eps) + log.calc(3, x, eps))
-            ), 2.0) * log.calc(2, x, eps);
+                    ((ln.calc(x, eps) - log.calc(10.0, x, eps)) + (ln.calc(x, eps) / log.calc(5.0, x, eps)))
+                    / (ln.calc(x, eps) + log.calc(3.0, x, eps))
+            ), 2.0) * log.calc(2.0, x, eps);
         }
     }
 }

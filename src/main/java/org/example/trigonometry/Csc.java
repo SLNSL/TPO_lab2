@@ -16,7 +16,9 @@ public class Csc implements Calculable {
     }
 
     public double calc(double x, double eps){
-
+        if (Math.abs(x % Math.PI) < eps && eps < 0.05) 
+            return Double.NaN;
+        
         return 1 / sin.calc(x, eps);
     }
 }

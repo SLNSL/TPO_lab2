@@ -1,6 +1,18 @@
 package org.example.logarithms;
 
-public class Log extends Ln{
+import org.example.Calculable;
+
+public class Log implements Calculable {
+    
+    private final Ln ln;
+    
+    public Log(Ln ln){
+        this.ln = ln;
+    }
+    
+    public Log(){
+        ln = new Ln();
+    }
 
     @Override
     public double calc(double x, double eps) {
@@ -12,8 +24,8 @@ public class Log extends Ln{
             return Double.NaN;
         } 
         
-        double minuend = super.calc(x, eps/2);
-        double subtrahend = super.calc(base, eps/2);
+        double minuend = ln.calc(x, eps/2);
+        double subtrahend = ln.calc(base, eps/2);
         
         if (!Double.isFinite(minuend) || !Double.isFinite(subtrahend)){
             return Double.NaN;

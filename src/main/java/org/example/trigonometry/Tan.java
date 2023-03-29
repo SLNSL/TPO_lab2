@@ -18,6 +18,8 @@ public class Tan implements Calculable {
 
 
     public double calc(double x, double eps){
+        if (Math.abs(Math.abs(x % Math.PI) - Math.PI/2) < eps && eps < 0.05 ) 
+            return Double.NaN;
 
         return sin.calc(x, eps) / cos.calc(x, eps);
     }

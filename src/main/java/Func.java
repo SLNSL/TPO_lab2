@@ -39,6 +39,7 @@ public class Func implements Calculable {
 
     public double calc(double x, double eps){
         if (!Double.isFinite(x)) return Double.NaN;
+        eps /= 10;
         
         if (x <= 0){
             return ((Math.pow((((((cot.calc(x, eps) * csc.calc(x, eps)) * sec.calc(x, eps)) + cos.calc(x, eps)) +

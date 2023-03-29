@@ -20,6 +20,9 @@ public class Cot implements Calculable {
 
     @Override
     public double calc(double x, double eps){
+        if (Math.abs(x % Math.PI) < eps && eps < 0.05) 
+            return Double.NaN;
+        
         return cos.calc(x, eps) / sin.calc(x, eps);
     }
 }

@@ -27,9 +27,9 @@ public class Log implements Calculable {
         double minuend = ln.calc(x, eps/2);
         double subtrahend = ln.calc(base, eps/2);
         
-        if (!Double.isFinite(minuend) || !Double.isFinite(subtrahend)){
+        /*if (!Double.isFinite(minuend) || !Double.isFinite(subtrahend)){
             return Double.NaN;
-        }
+        }*/
         
         return minuend - subtrahend;
     }

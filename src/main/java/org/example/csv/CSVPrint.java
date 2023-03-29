@@ -1,4 +1,4 @@
-package org.example.сsv;
+package org.example.csv;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

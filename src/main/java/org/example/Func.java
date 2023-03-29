@@ -40,7 +40,6 @@ public class Func implements Calculable {
 
     public double calc(double x, double eps){
         if (!Double.isFinite(x)) return Double.NaN;
-        //eps /= 1.5;
 
         /*System.out.println("x = " + x);
         System.out.println("cos " + Math.cos(x));

@@ -4,7 +4,7 @@ import org.example.Func;
 import org.example.logarithms.Ln;
 import org.example.logarithms.Log;
 import org.example.trigonometry.*;
-import org.example.сsv.CSVPrint;
+import org.example.csv.CSVPrint;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,6 +45,24 @@ public class FunctionTest {
             e.printStackTrace();
         }
     }
+    
+    static void fillMockForLog(Log mock, String filename){
+        try {
+            FileReader inputs = new FileReader(filename);
+            CSVReader csvReader = new CSVReader(inputs);
+
+            for (String[] row : csvReader) {
+                Mockito.when(mock.calc(Double.parseDouble(row[0]), Double.parseDouble(row[1]), eps))
+                        .thenReturn(Double.parseDouble(row[2]));
+                if(Objects.equals(row[0], "10")){
+                    Mockito.when(mock.calc(Double.parseDouble(row[1]), eps))
+                            .thenReturn(Double.parseDouble(row[2]));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @BeforeAll
@@ -65,7 +84,7 @@ public class FunctionTest {
         fillMock(secMock, "src/main/resources/trigonometry/SecInput.csv");
         fillMock(tanMock, "src/main/resources/trigonometry/TanInput.csv");
         fillMock(lnMock, "src/main/resources/logarithms/LnInput.csv");
-        fillMock(logMock, "src/main/resources/logarithms/LogInput.csv");
+        fillMockForLog(logMock, "src/main/resources/logarithms/LogInput.csv");
     }
 
 

@@ -24,13 +24,9 @@ public class Log implements Calculable {
             return Double.NaN;
         } 
         
-        double minuend = ln.calc(x, eps/2);
-        double subtrahend = ln.calc(base, eps/2);
-        
-        /*if (!Double.isFinite(minuend) || !Double.isFinite(subtrahend)){
-            return Double.NaN;
-        }*/
-        
-        return minuend / subtrahend;
+        double nominator = ln.calc(x, eps / 2.0);
+        double denominator = ln.calc(base, eps / 2.0);
+
+        return nominator / denominator;
     }
 }

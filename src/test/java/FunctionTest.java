@@ -6,13 +6,10 @@ import org.example.logarithms.Log;
 import org.example.trigonometry.*;
 import org.example.csv.CSVPrint;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.mockito.Mockito;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -32,7 +29,6 @@ public class FunctionTest {
     static Tan tanMock;
     static Ln lnMock;
     static Log logMock;
-
     static CSVPrint print;
 
     static void fillMock(Calculable mock, String filename){
@@ -57,7 +53,6 @@ public class FunctionTest {
             for (String[] row : csvReader) {
                 Mockito.when(mock.calc(Double.parseDouble(row[0]), Double.parseDouble(row[1]), eps))
                         .thenReturn(Double.parseDouble(row[2]));
-
                 if(Objects.equals(row[0], "10")){
                     Mockito.when(mock.calc(Double.parseDouble(row[1]), eps))
                             .thenReturn(Double.parseDouble(row[2]));
@@ -70,7 +65,8 @@ public class FunctionTest {
 
 
     @BeforeAll
-    static void createMocks() throws FileNotFoundException {
+    static void createMocks() {
+        print = new CSVPrint();
         sinMock = Mockito.mock(Sin.class);
         cosMock = Mockito.mock(Cos.class);
         cotMock = Mockito.mock(Cot.class);
@@ -79,7 +75,6 @@ public class FunctionTest {
         tanMock = Mockito.mock(Tan.class);
         lnMock = Mockito.mock(Ln.class);
         logMock = Mockito.mock(Log.class);
-        print = new CSVPrint();
         
         fillMock(sinMock, "src/main/resources/trigonometry/SinInput.csv");
         fillMock(cosMock, "src/main/resources/trigonometry/CosInput.csv");
@@ -92,15 +87,15 @@ public class FunctionTest {
     }
 
 
-@Test
+
     void checkMock(){
         try {
             FileReader inputs = new FileReader("src/main/resources/FuncInput.csv");
-            Func s = new Func();
+            Calculable s = new Func();
             CSVReader csvReader = new CSVReader(inputs);
             
             for (String[] row : csvReader) {
-                System.out.println(Double.parseDouble(row[0]) + ", "  + s.calc( Double.parseDouble(row[0]), eps));
+                System.out.println(Double.parseDouble(row[0]) + ", " + s.calc(Double.parseDouble(row[0]), eps));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,6 +138,7 @@ public class FunctionTest {
 
         print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
+    
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testTwoDependency(double x, double expected) throws FileNotFoundException{
@@ -152,6 +148,7 @@ public class FunctionTest {
 
         print.csvPrint(x, ans, "src/main/resources/output.csv");
     }
+    
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testThreeDependency(double x, double expected) throws FileNotFoundException{

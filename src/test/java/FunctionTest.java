@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FunctionTest {
 
-    static double eps = 0.01;
+    static double eps = 0.001;
     static Sin sinMock;
     static Cos cosMock;
     static Cot cotMock;
@@ -84,7 +84,7 @@ public class FunctionTest {
     @CsvFileSource(resources = "FuncInput.csv")
     void testAllMocks(double x, double expected){
         Func func = new Func(cotMock, cscMock, secMock, cosMock, tanMock, sinMock, lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), eps);
+        assertEquals(expected, func.calc(x, eps), 0.01);
     }
 
     @ParameterizedTest
@@ -99,25 +99,25 @@ public class FunctionTest {
                 new Sin(),
                 new Ln(),
                 new Log(new Ln()));
-        assertEquals(expected, func.calc(x, eps), eps);
+        assertEquals(expected, func.calc(x, eps), 0.01);
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testOneDependency(double x, double expected){
         Func func = new Func(new Cot(sinMock, cosMock), new Csc(sinMock), new Sec(cosMock), cosMock, new Tan(sinMock, cosMock), sinMock, lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), eps);
+        assertEquals(expected, func.calc(x, eps), 0.01);
     }
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testTwoDependency(double x, double expected){
         Func func = new Func(new Cot(sinMock, new Cos(sinMock)), new Csc(sinMock), new Sec(new Cos(sinMock)), new Cos(sinMock), new Tan(sinMock, new Cos(sinMock)), sinMock, lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), eps);
+        assertEquals(expected, func.calc(x, eps), 0.01);
     }
     @ParameterizedTest
     @CsvFileSource(resources = "FuncInput.csv")
     void testThreeDependency(double x, double expected){
         Func func = new Func(new Cot(new Sin(), new Cos(new Sin())), new Csc(new Sin()), new Sec(new Cos(new Sin())), new Cos(new Sin()), new Tan(new Sin(), new Cos(new Sin())), new Sin(), lnMock, logMock);
-        assertEquals(expected, func.calc(x, eps), eps);
+        assertEquals(expected, func.calc(x, eps), 0.01);
     }
 }

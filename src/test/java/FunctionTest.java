@@ -1,5 +1,6 @@
 import com.opencsv.CSVReader;
 import org.example.Calculable;
+import org.example.Func;
 import org.example.logarithms.Ln;
 import org.example.logarithms.Log;
 import org.example.trigonometry.*;

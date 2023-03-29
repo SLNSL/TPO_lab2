@@ -1,4 +1,5 @@
-import org.example.Calculable;
+package org.example;
+
 import org.example.logarithms.Ln;
 import org.example.logarithms.Log;
 import org.example.trigonometry.*;
@@ -39,7 +40,16 @@ public class Func implements Calculable {
 
     public double calc(double x, double eps){
         if (!Double.isFinite(x)) return Double.NaN;
-        eps /= 10;
+        //eps /= 1.5;
+
+        /*System.out.println("x = " + x);
+        System.out.println("cos " + Math.cos(x));
+        System.out.println("cot " + 1.0/Math.tan(x));
+        System.out.println("csc " + 1 / Math.sin(x));
+        System.out.println("sec " + 1 / Math.cos(x));
+        System.out.println("sin " + Math.sin(x));
+        System.out.println("tan " + Math.tan(x));
+        System.out.println("--------------");*/
         
         if (x <= 0){
             return ((Math.pow((((((cot.calc(x, eps) * csc.calc(x, eps)) * sec.calc(x, eps)) + cos.calc(x, eps)) +
@@ -56,6 +66,4 @@ public class Func implements Calculable {
             ), 2.0) * log.calc(2, x, eps);
         }
     }
-
-
 }
